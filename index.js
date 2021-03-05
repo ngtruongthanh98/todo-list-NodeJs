@@ -10,8 +10,11 @@ app.get('/', (request, response) => {
 app.get('/todos', (request, response) => {
     fs.readFile('./store/todos.json','utf-8', (err, data) => {
         if(err){
-            return response.status(500)
+            return response.status(500),send('Sorry, something went wrong.')
         }
+
+        const todos = JSON.parse(data)
+        return response.json({todos: todos})
     })
 })
 
